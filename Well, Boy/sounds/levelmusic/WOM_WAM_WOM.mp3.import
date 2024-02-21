@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/WOM_WAM_WOM.mp3-bb7a5507e7a567d84e0c29fc6be0bd9c.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/WOM_WAM_WOM.mp3"
+dest_files=[ "res://.import/WOM_WAM_WOM.mp3-bb7a5507e7a567d84e0c29fc6be0bd9c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

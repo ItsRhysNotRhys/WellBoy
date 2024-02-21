@@ -1,0 +1,131 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Actors/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/Stages/Level0.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Interface/Cooldowns/AbilityIcon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art/HUD/vignette.png" type="Texture" id=4]
+[ext_resource path="res://Levels/Test/Main.gd" type="Script" id=5]
+[ext_resource path="res://art/HUD/Q.png" type="Texture" id=6]
+[ext_resource path="res://Interface/Health/PlayerHealthBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Actors/Player/DoubleJump.tscn" type="PackedScene" id=8]
+[ext_resource path="res://art/HUD/E.png" type="Texture" id=9]
+[ext_resource path="res://art/HUD/L.png" type="Texture" id=10]
+[ext_resource path="res://art/HUD/k.png" type="Texture" id=11]
+[ext_resource path="res://art/HUD/J.png" type="Texture" id=12]
+[ext_resource path="res://art/HUD/FACE.png" type="Texture" id=13]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D vignette;
+const vec3 noise_magic = vec3(0.06711056, 0.00583715, 52.9829189);
+uniform float debanding_dither;
+uniform float blur = 0.5;
+uniform float vignette_darkness = -0.05;
+
+void fragment() {
+	vec3 vignette_color = texture(vignette, UV).rgb;
+	
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, (blur - vignette_color.r) * 4.0).rgb;
+	COLOR.rgb *= texture(vignette, UV).rgb;
+	COLOR.rgb += vignette_darkness;
+	
+	float offset =  fract(noise_magic.z * fract(dot(FRAGCOORD.xy, noise_magic.xy)));
+	COLOR.rgb += vec3(offset, 1.0 - offset, offset) * debanding_dither;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/debanding_dither = null
+shader_param/blur = 0.5
+shader_param/vignette_darkness = 0.05
+shader_param/vignette = ExtResource( 4 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 5 )
+
+[node name="Level0" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 48, 313 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+material = SubResource( 2 )
+margin_right = 1603.0
+margin_bottom = 902.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" parent="CanvasLayer" instance=ExtResource( 7 )]
+margin_left = 106.0
+margin_top = 48.0
+margin_right = 470.0
+margin_bottom = 98.0
+
+[node name="RangedCooldown" parent="CanvasLayer" instance=ExtResource( 3 )]
+position = Vector2( 80, 830 )
+scale = Vector2( 1.2, 1.2 )
+
+[node name="MeleeCooldown" parent="CanvasLayer" instance=ExtResource( 3 )]
+position = Vector2( 160, 830 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 11 )
+ability_type = "melee"
+
+[node name="DashCooldown" parent="CanvasLayer" instance=ExtResource( 3 )]
+position = Vector2( 240, 830 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 10 )
+ability_type = "dash"
+
+[node name="LifestealCooldown" parent="CanvasLayer" instance=ExtResource( 3 )]
+position = Vector2( 315, 840 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 6 )
+ability_type = "lifesteal"
+
+[node name="CritCooldown" parent="CanvasLayer" instance=ExtResource( 3 )]
+position = Vector2( 380, 840 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 9 )
+ability_type = "crit"
+
+[node name="RangedHud" type="Sprite" parent="CanvasLayer"]
+visible = false
+modulate = Color( 0.447059, 0.376471, 0.376471, 1 )
+position = Vector2( 72, 830 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 12 )
+
+[node name="DashHud" type="Sprite" parent="CanvasLayer"]
+visible = false
+modulate = Color( 0.380392, 0.447059, 0.376471, 1 )
+position = Vector2( 264, 830 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 10 )
+
+[node name="MeleeHud" type="Sprite" parent="CanvasLayer"]
+visible = false
+modulate = Color( 0.376471, 0.388235, 0.447059, 1 )
+position = Vector2( 168, 830 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 11 )
+
+[node name="ICON" type="Sprite" parent="CanvasLayer"]
+modulate = Color( 0.701961, 0.701961, 0.701961, 1 )
+position = Vector2( 58.5, 61.75 )
+scale = Vector2( 1.39063, 1.39844 )
+texture = ExtResource( 13 )
+
+[node name="DoubleJump" parent="." instance=ExtResource( 8 )]
+visible = false

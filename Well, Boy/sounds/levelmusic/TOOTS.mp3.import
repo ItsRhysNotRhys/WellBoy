@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/TOOTS.mp3-94fcfa8ce2efb98fcb5f1a7ebbd6c057.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/TOOTS.mp3"
+dest_files=[ "res://.import/TOOTS.mp3-94fcfa8ce2efb98fcb5f1a7ebbd6c057.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

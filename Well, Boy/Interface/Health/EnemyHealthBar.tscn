@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.74902, 0.298039, 0.298039, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.784314, 0.784314, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.266667, 0.262745, 0.262745, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.788235, 0.745098, 0.745098, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[node name="ProgressBar" type="ProgressBar"]
+margin_right = 100.0
+margin_bottom = 20.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

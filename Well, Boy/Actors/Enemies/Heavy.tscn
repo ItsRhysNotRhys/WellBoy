@@ -1,0 +1,200 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Interface/Health/EnemyHealthBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Interface/Health/Health.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Actors/Enemies/Heavy.gd" type="Script" id=3]
+[ext_resource path="res://art/enemies/heavy/heavyjump.png" type="Texture" id=4]
+[ext_resource path="res://art/Flash.tres" type="Shader" id=5]
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/hit_opacity = 0.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 129, 104.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 129.5, 134.5 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 1587, 287.5 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "gointoair"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 4, 11 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 4 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "land"
+length = 0.18
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.11, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 11, 13, 2 ]
+}
+
+[node name="Heavy" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 5 )
+position = Vector2( 0, -20 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+hframes = 4
+vframes = 4
+
+[node name="Health" parent="." instance=ExtResource( 2 )]
+max_health = 100
+
+[node name="HealthBar" parent="." instance=ExtResource( 1 )]
+margin_left = -96.0
+margin_top = -199.0
+margin_right = 96.0
+margin_bottom = -168.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 22.5 )
+shape = SubResource( 2 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 0.5, -2.5 )
+shape = SubResource( 3 )
+
+[node name="AttackCD" type="Timer" parent="."]
+wait_time = 2.25
+one_shot = true
+
+[node name="DetectionRadius" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
+position = Vector2( 0, -67.5 )
+shape = SubResource( 12 )
+
+[node name="ChargeUp" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="FlashPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 6 )
+anims/hit = SubResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 8 )
+anims/gointoair = SubResource( 9 )
+anims/idle = SubResource( 10 )
+anims/land = SubResource( 11 )
+
+[node name="Land" type="Timer" parent="."]
+wait_time = 0.18
+one_shot = true
+
+[connection signal="dead" from="Health" to="." method="_on_Health_dead"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]
+[connection signal="body_entered" from="DetectionRadius" to="." method="_on_DetectionRadius_body_entered"]
+[connection signal="body_exited" from="DetectionRadius" to="." method="_on_DetectionRadius_body_exited"]
+[connection signal="timeout" from="ChargeUp" to="." method="_on_ChargeUp_timeout"]
+[connection signal="timeout" from="Land" to="." method="_on_Land_timeout"]

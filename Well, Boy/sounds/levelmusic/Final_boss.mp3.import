@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Final_boss.mp3-8caf724215333777ce72bdd231992a09.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/Final_boss.mp3"
+dest_files=[ "res://.import/Final_boss.mp3-8caf724215333777ce72bdd231992a09.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

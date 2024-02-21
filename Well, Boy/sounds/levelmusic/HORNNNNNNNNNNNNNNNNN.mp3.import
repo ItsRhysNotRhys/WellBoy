@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/HORNNNNNNNNNNNNNNNNN.mp3-d009dfcc35e461838fe79c372870343e.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/HORNNNNNNNNNNNNNNNNN.mp3"
+dest_files=[ "res://.import/HORNNNNNNNNNNNNNNNNN.mp3-d009dfcc35e461838fe79c372870343e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

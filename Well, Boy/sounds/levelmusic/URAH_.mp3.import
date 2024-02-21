@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/URAH_.mp3-18c9eacf109c7baf0ad3bc39ec6cfb73.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/URAH_.mp3"
+dest_files=[ "res://.import/URAH_.mp3-18c9eacf109c7baf0ad3bc39ec6cfb73.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

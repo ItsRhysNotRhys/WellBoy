@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/normalbolt.mp3-79abcf7374b3d6d3e20934dd1778297f.mp3str"
+
+[deps]
+
+source_file="res://sounds/soundeffects/normalbolt.mp3"
+dest_files=[ "res://.import/normalbolt.mp3-79abcf7374b3d6d3e20934dd1778297f.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

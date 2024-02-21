@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rivs_project_fixed.mp3-85641256bb090da219947370d8c6201e.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/Rivs_project_fixed.mp3"
+dest_files=[ "res://.import/Rivs_project_fixed.mp3-85641256bb090da219947370d8c6201e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

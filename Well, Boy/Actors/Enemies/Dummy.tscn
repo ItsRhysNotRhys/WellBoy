@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Interface/Health/EnemyHealthBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Interface/Health/Health.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Actors/Enemies/Dummy.gd" type="Script" id=3]
+[ext_resource path="res://art/enemies/dummy/dummy1.png" type="Texture" id=4]
+[ext_resource path="res://art/Flash.tres" type="Shader" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 14.0
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/hit_opacity = 1.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+height = 14.0
+
+[sub_resource type="Animation" id=5]
+resource_name = "Hit"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:material:shader_param/hit_opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[node name="Dummy" type="KinematicBody2D"]
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 22, 16 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 7 )
+position = Vector2( 22, 19 )
+scale = Vector2( 1, 0.96 )
+texture = ExtResource( 4 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 22, 16 )
+shape = SubResource( 2 )
+
+[node name="Health" parent="." instance=ExtResource( 2 )]
+max_health = 100
+
+[node name="HealthBar" parent="." instance=ExtResource( 1 )]
+margin_left = 3.0
+margin_top = -6.0
+margin_right = 39.0
+margin_bottom = 0.0
+
+[node name="Heal" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+anims/Hit = SubResource( 5 )
+anims/RESET = SubResource( 6 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="Heal" to="." method="_on_Heal_timeout"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/yuh.mp3-c899e990c551ead4be0bc8ac981ee40e.mp3str"
+
+[deps]
+
+source_file="res://sounds/levelmusic/yuh.mp3"
+dest_files=[ "res://.import/yuh.mp3-c899e990c551ead4be0bc8ac981ee40e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

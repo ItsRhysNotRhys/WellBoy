@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Attacks_Abilities/Dash/Dash.gd" type="Script" id=1]
+[ext_resource path="res://sounds/soundeffects/ZOOM_BITCH.wav" type="AudioStream" id=2]
+
+[node name="Dash" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="DashDuration" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="dasheffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="DashCD" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashDuration" to="." method="_on_DashDuration_timeout"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
+[connection signal="timeout" from="DashCD" to="." method="_on_DashCD_timeout"]

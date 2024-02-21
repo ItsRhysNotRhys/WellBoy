@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Bite_of_87.wav-09a41594651c10c41f2c281e64955906.sample"
+
+[deps]
+
+source_file="res://sounds/soundeffects/Bite_of_87.wav"
+dest_files=[ "res://.import/Bite_of_87.wav-09a41594651c10c41f2c281e64955906.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

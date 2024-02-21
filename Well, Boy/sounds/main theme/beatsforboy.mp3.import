@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/beatsforboy.mp3-78b77b65fd64ee4805c56f205f69d645.mp3str"
+
+[deps]
+
+source_file="res://sounds/main theme/beatsforboy.mp3"
+dest_files=[ "res://.import/beatsforboy.mp3-78b77b65fd64ee4805c56f205f69d645.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

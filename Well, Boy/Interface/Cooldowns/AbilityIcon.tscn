@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Interface/Cooldowns/AbilityIcon.gd" type="Script" id=1]
+[ext_resource path="res://art/HUD/J.png" type="Texture" id=2]
+[ext_resource path="res://art/effect spritesheets/particles/floaty_32.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 2.33
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 0, -90, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 8.0
+scale_random = 1.0
+color = Color( 1.16, 0.05, 0.05, 1 )
+anim_speed = 1.0
+anim_speed_random = 0.25
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 2.33
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 0, -90, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 8.0
+scale_random = 1.0
+color = Color( 0.088623, 0.335835, 0.515625, 1 )
+anim_speed = 1.0
+anim_speed_random = 0.25
+
+[node name="AbilityIcon" type="Sprite"]
+position = Vector2( 76.5, 80.5 )
+scale = Vector2( 1.14062, 1.14062 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+ability_type = "ranged"
+
+[node name="Lifesteal" type="Particles2D" parent="."]
+material = SubResource( 1 )
+emitting = false
+lifetime = 2.0
+process_material = SubResource( 2 )
+texture = ExtResource( 3 )
+
+[node name="Crit" type="Particles2D" parent="."]
+material = SubResource( 3 )
+emitting = false
+lifetime = 2.0
+process_material = SubResource( 4 )
+texture = ExtResource( 3 )
+
+[node name="Sweep" type="TextureProgress" parent="."]
+modulate = Color( 0.105882, 0.105882, 0.105882, 0.87451 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -32.8767
+margin_top = -32.0
+margin_right = -32.8767
+margin_bottom = -32.0
+rect_scale = Vector2( 1.01149, 0.985936 )
+fill_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Counter" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -53.9178
+margin_top = -54.7945
+margin_right = -72.9178
+margin_bottom = -40.7945
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="Counter"]
+visible = false
+margin_right = 45.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+text = "0.0"
+align = 2
+valign = 2
+clip_text = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

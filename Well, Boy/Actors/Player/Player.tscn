@@ -1,0 +1,342 @@
+[gd_scene load_steps=51 format=2]
+
+[ext_resource path="res://Interface/Health/Health.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art/Actions/BoltFireEffect/BoltEffect_7.png" type="Texture" id=2]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_2.png" type="Texture" id=3]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_8.png" type="Texture" id=4]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_3.png" type="Texture" id=5]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_1.png" type="Texture" id=6]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_9.png" type="Texture" id=7]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_4.png" type="Texture" id=8]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_7.png" type="Texture" id=9]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_10.png" type="Texture" id=10]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_5.png" type="Texture" id=11]
+[ext_resource path="res://art/Actions/Idle/IdleBoy_6.png" type="Texture" id=12]
+[ext_resource path="res://Actors/Player/Player.gd" type="Script" id=13]
+[ext_resource path="res://art/Actions/Air/AirBoy_4.png" type="Texture" id=14]
+[ext_resource path="res://art/Actions/Run/RunBoySpriteSheet.png" type="Texture" id=15]
+[ext_resource path="res://art/effect spritesheets/aura/effect_4.png" type="Texture" id=16]
+[ext_resource path="res://art/effect spritesheets/particles/floaty_32.png" type="Texture" id=17]
+[ext_resource path="res://Actors/Player/ScreenShake.tscn" type="PackedScene" id=18]
+[ext_resource path="res://art/Actions/Air/AirBoy_3.png" type="Texture" id=19]
+[ext_resource path="res://art/Actions/Air/AirBoy_6.png" type="Texture" id=20]
+[ext_resource path="res://art/Actions/Air/AirBoy_5.png" type="Texture" id=21]
+[ext_resource path="res://art/Actions/Air/AirBoy_8.png" type="Texture" id=22]
+[ext_resource path="res://art/Actions/Air/AirBoy_1.png" type="Texture" id=23]
+[ext_resource path="res://sounds/soundeffects/normalbolt.mp3" type="AudioStream" id=24]
+[ext_resource path="res://art/Actions/Air/AirBoy_7.png" type="Texture" id=28]
+[ext_resource path="res://art/Actions/Air/AirBoy_9.png" type="Texture" id=29]
+[ext_resource path="res://art/Actions/Air/AirBoy_2.png" type="Texture" id=30]
+[ext_resource path="res://art/Actions/BoltFireEffect/BoltEffect_6.png" type="Texture" id=31]
+[ext_resource path="res://art/Actions/BoltFireEffect/BoltEffect_8.png" type="Texture" id=32]
+[ext_resource path="res://art/effect spritesheets/movement effects/SmokeFX Lite 2A sheet.png" type="Texture" id=33]
+[ext_resource path="res://Actors/Player/Camera2D.gd" type="Script" id=34]
+[ext_resource path="res://Attacks_Abilities/Dash/Dash.tscn" type="PackedScene" id=39]
+[ext_resource path="res://Attacks_Abilities/Dash/GhostShader.tres" type="Shader" id=40]
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 38.0
+height = 78.0
+
+[sub_resource type="CanvasItemMaterial" id=16]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=17]
+emission_shape = 1
+emission_sphere_radius = 2.33
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 0, -90, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 8.0
+scale_random = 1.0
+color = Color( 1.16, 0.05, 0.05, 1 )
+anim_speed = 1.0
+anim_speed_random = 0.25
+
+[sub_resource type="ParticlesMaterial" id=18]
+emission_shape = 1
+emission_sphere_radius = 2.33
+flag_disable_z = true
+spread = 90.0
+gravity = Vector3( 0, -90, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 8.0
+scale_random = 1.0
+color = Color( 0.0499999, 0.691719, 1.16, 1 )
+anim_speed = 1.0
+anim_speed_random = 0.25
+
+[sub_resource type="CanvasItemMaterial" id=12]
+blend_mode = 1
+
+[sub_resource type="Curve" id=13]
+_data = [ Vector2( 0, 1 ), 0.0, 12.8591, 0, 0, Vector2( 0.98913, 0.0227273 ), -0.539589, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=14]
+curve = SubResource( 13 )
+
+[sub_resource type="ParticlesMaterial" id=15]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = -100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_random = 1.0
+scale_curve = SubResource( 14 )
+color = Color( 3.47, 1.16, 2.31, 1 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 40 )
+shader_param/whiten = false
+shader_param/mix_weight = 1.0
+
+[sub_resource type="Animation" id=4]
+resource_name = "Air"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.11, 0.21, 0.31, 0.41, 0.51, 0.61, 0.71, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 23 ), ExtResource( 30 ), ExtResource( 19 ), ExtResource( 14 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 28 ), ExtResource( 22 ), ExtResource( 29 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/PlayerSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 10 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Run"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprites/RunningSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "GreenBlast"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlastSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 31 ), ExtResource( 2 ), ExtResource( 32 ), null ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "dust"
+tracks/0/type = "value"
+tracks/0/path = NodePath("DustParticles:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 3, 4, 5, 6, 7, 8, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "no_dust"
+tracks/0/type = "value"
+tracks/0/path = NodePath("DustParticles:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 33, 72.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 51, 64 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 13 )
+
+[node name="Dash" parent="." instance=ExtResource( 39 )]
+
+[node name="HurtBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="Area" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0, 2 )
+shape = SubResource( 8 )
+
+[node name="Cooldowns" type="Node2D" parent="."]
+
+[node name="RangedAttackCD" type="Timer" parent="Cooldowns"]
+one_shot = true
+
+[node name="MeleeAttackCD" type="Timer" parent="Cooldowns"]
+one_shot = true
+
+[node name="LifestealCD" type="Timer" parent="Cooldowns"]
+one_shot = true
+
+[node name="CritCD" type="Timer" parent="Cooldowns"]
+one_shot = true
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Lifesteal" type="Particles2D" parent="Sprites"]
+material = SubResource( 16 )
+emitting = false
+lifetime = 2.0
+process_material = SubResource( 17 )
+texture = ExtResource( 17 )
+
+[node name="Crit" type="Particles2D" parent="Sprites"]
+material = SubResource( 16 )
+emitting = false
+lifetime = 2.0
+process_material = SubResource( 18 )
+texture = ExtResource( 17 )
+
+[node name="Crit(unused)" type="Particles2D" parent="Sprites"]
+visible = false
+material = SubResource( 12 )
+scale = Vector2( 0.1, 0.1 )
+emitting = false
+amount = 4
+process_material = SubResource( 15 )
+texture = ExtResource( 16 )
+
+[node name="PlayerSprite" type="Sprite" parent="Sprites"]
+material = SubResource( 7 )
+position = Vector2( 0, 3 )
+scale = Vector2( 2.78261, 3.04167 )
+texture = ExtResource( 10 )
+
+[node name="PlayerAnimations" type="AnimationPlayer" parent="Sprites"]
+root_node = NodePath("../..")
+anims/Air = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Run = SubResource( 6 )
+
+[node name="BlastSprite" type="Sprite" parent="Sprites"]
+visible = false
+position = Vector2( 7.62939e-06, 4.76837e-07 )
+scale = Vector2( 3.63407, 3.06679 )
+texture = ExtResource( 31 )
+
+[node name="BlastAnimations" type="AnimationPlayer" parent="Sprites"]
+anims/GreenBlast = SubResource( 9 )
+
+[node name="DustParticles" type="Sprite" parent="Sprites"]
+position = Vector2( -73.5625, -75.7969 )
+scale = Vector2( 1.67188, 1.48438 )
+texture = ExtResource( 33 )
+centered = false
+offset = Vector2( -20, 45 )
+hframes = 63
+
+[node name="DustParticleAnimation" type="AnimationPlayer" parent="Sprites"]
+anims/dust = SubResource( 10 )
+anims/no_dust = SubResource( 11 )
+
+[node name="RunningSprite" type="Sprite" parent="Sprites"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 15 )
+offset = Vector2( 5, 1 )
+hframes = 3
+vframes = 3
+
+[node name="Health" parent="." instance=ExtResource( 1 )]
+max_health = 100
+
+[node name="IdleCollision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 1.5 )
+shape = SubResource( 1 )
+
+[node name="RunningCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 17, 11 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 2, 2 )
+current = true
+zoom = Vector2( 1.5, 1.5 )
+script = ExtResource( 34 )
+
+[node name="ScreenShake" parent="Camera2D" instance=ExtResource( 18 )]
+
+[node name="Hitstun" type="Timer" parent="."]
+one_shot = true
+
+[node name="Scale" type="Timer" parent="."]
+
+[node name="BoltTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="boltsound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+volume_db = 3.0
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="timeout" from="Cooldowns/RangedAttackCD" to="." method="_on_RangedAttackCD_timeout"]
+[connection signal="timeout" from="Cooldowns/MeleeAttackCD" to="." method="_on_MeleeAttackCD_timeout"]
+[connection signal="timeout" from="Cooldowns/LifestealCD" to="." method="_on_LifestealCD_timeout"]
+[connection signal="timeout" from="Cooldowns/CritCD" to="." method="_on_CritCD_timeout"]
+[connection signal="dead" from="Health" to="." method="_on_Health_dead"]
+[connection signal="timeout" from="Hitstun" to="." method="_on_Hitstun_timeout"]
+[connection signal="timeout" from="Scale" to="." method="_on_Scale_timeout"]
+[connection signal="timeout" from="BoltTimer" to="." method="_on_BoltTimer_timeout"]
